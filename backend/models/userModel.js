@@ -15,6 +15,10 @@ const userSchema = mongoose.Schema(
             type: String,
             required: [true, "Ingresa tu contraseña correctamente"],
         },
+        favorites: {
+            type: Array,
+            required: true,
+        },
         isAdmin: {
             type: Boolean,
             required: false,

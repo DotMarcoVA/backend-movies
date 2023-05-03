@@ -7,9 +7,17 @@ const getMovies = asyncHandler(async (req, res) => {
 });
 
 const setMovies = asyncHandler(async (req, res) => {
-    const { title, overview, poster_path, release_date, votes } = req.body;
-
-    if (!title || !overview || !poster_path || !release_date || !votes) {
+    // Verificar que sea admin
+    const adminFlag = req.user.isAdmin;
+    if (adminFlag != true) {
+        res.status(401);
+        throw new Error("Acceso no Autorizado para Usuarios");
+    }
+    const { title, overview, genre, poster_path, trailer_path, release_date, votes } = req.body;
+    if (!trailer_path) {
+        trailer_path = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    }
+    if (!title || !overview || !genre || !poster_path || !release_date || !votes) {
         res.status(400);
         throw new Error("Verificar que todos los campos esten llenos correctamente");
     }
@@ -25,6 +33,11 @@ const setMovies = asyncHandler(async (req, res) => {
 });
 
 const updateMovie = asyncHandler(async (req, res) => {
+    const adminFlag = req.user.isAdmin;
+    if (adminFlag != true) {
+        res.status(401);
+        throw new Error("Acceso no Autorizado para Usuarios");
+    }
     const movie = await Movie.findById(req.params.id);
     if (!movie) {
         res.status(400);

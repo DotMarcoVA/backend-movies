@@ -23,6 +23,7 @@ const loginUser = asyncHandler(async (req, res) => {
             _id: user.id,
             name: user.name,
             email: user.email,
+            isAdmin: user.isAdmin,
             token: generateToken(user.id),
         });
     } else {
@@ -33,8 +34,11 @@ const loginUser = asyncHandler(async (req, res) => {
 
 const registerUser = asyncHandler(async (req, res) => {
     // Destructurar el Body
-    let { name, email, password, isActive } = req.body;
+    let { name, email, password, isAdmin, isActive } = req.body;
     // Verificar que contenga el campo Admin y este sea True. Caso Contrario se asigna False
+    if (!isAdmin) {
+        isAdmin = false;
+    }
     if (!isActive) {
         isActive = true;
     }
@@ -58,6 +62,7 @@ const registerUser = asyncHandler(async (req, res) => {
         name,
         email,
         password: hashedPassword,
+        isAdmin,
         isActive,
     });
     // Mandamos la respueta de la funcion

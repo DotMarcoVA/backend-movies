@@ -10,9 +10,17 @@ const userSchema = mongoose.Schema(
             type: String,
             required: [true, "Introduce la sinopsis"],
         },
+        genre: {
+            type: Array,
+            required: [true, "Introduce al menos un genero"],
+        },
         poster_path: {
             type: String,
             required: [true, "Introduce la ruta del Poster"],
+        },
+        trailer_path: {
+            type: String,
+            required: false,
         },
         release_date: {
             type: String,

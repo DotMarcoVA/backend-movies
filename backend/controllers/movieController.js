@@ -24,6 +24,7 @@ const setMovies = asyncHandler(async (req, res) => {
     const movie = await Movie.create({
         title,
         overview,
+        genre,
         poster_path,
         release_date,
         votes,

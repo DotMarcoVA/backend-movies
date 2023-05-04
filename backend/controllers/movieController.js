@@ -14,6 +14,7 @@ const setMovies = asyncHandler(async (req, res) => {
         throw new Error("Acceso no Autorizado para Usuarios");
     }
     let { title, overview, genre, poster_path, trailer_path, release_date, votes } = req.body;
+    // Asignar un Trailer Generico en caso que no exista el campo
     if (!trailer_path) {
         trailer_path = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
     }

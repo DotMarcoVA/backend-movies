@@ -39,6 +39,7 @@ const registerUser = asyncHandler(async (req, res) => {
     if (!isAdmin) {
         isAdmin = false;
     }
+    // Verificar que exista el campo active o en cuyo caso, crearlo y asignarle True
     if (!isActive) {
         isActive = true;
     }
@@ -84,7 +85,9 @@ const getUserData = asyncHandler(async (req, res) => {
 
 const switchUser = asyncHandler(async (req, res) => {
     const user = req.user.id;
+    // Verificar el Status de la cuenta de usuario
     let status = req.user.isActive;
+    // Hacer Switch al Booleano del Estado
     status ? (status = false) : (status = true);
     const newStatus = await User.findByIdAndUpdate(user, { isActive: status });
     res.status(200).json(`Se ha cambiado el estado del usuario ${req.user.name} a ${status}`);

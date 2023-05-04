@@ -26,6 +26,7 @@ const setMovies = asyncHandler(async (req, res) => {
         overview,
         genre,
         poster_path,
+        trailer_path,
         release_date,
         votes,
     });
